@@ -7,6 +7,10 @@ getAllCompanys:function(callback){
 return db.query("Select * from companys",callback);
 
 },
+getCompanyByName:function(name,callback){
+
+    return db.query("select name from companys where name=?",[name],callback);
+},
 getCompanyById:function(id,callback){
 
     return db.query("select * from companys where Id=?",[id],callback);

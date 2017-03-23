@@ -2,11 +2,10 @@ var express = require('express');
 var router = express.Router();
 var company=require('../models/company.models');
 
-router.get('/:id?',function(req,res,next){
+router.get('/:name?',function(req,res,next){
 
-if(req.params.id){
-
-    company.getCompanyById(req.params.id,function(err,rows){
+if(req.params.name){
+    company.getCompanyByName(req.params.name,function(err,rows){
 
         if(err)
         {

@@ -1,6 +1,6 @@
 var db=require('../dbconnection');
 
-var Company={
+var company={
 
 getAllCompanys:function(callback){
 
@@ -32,4 +32,4 @@ var delarr=[];
    return db.query("delete from companys where Id in (?)",[delarr],callback);
 }
 };
-module.exports=Company;
+module.exports=company;

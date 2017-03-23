@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
-var Company=require('../models/Company.models');
+var company=require('../models/company.models');
 
 router.get('/:id?',function(req,res,next){
 
 if(req.params.id){
 
-    Company.getCompanyById(req.params.id,function(err,rows){
+    company.getCompanyById(req.params.id,function(err,rows){
 
         if(err)
         {
@@ -19,7 +19,7 @@ if(req.params.id){
 }
 else{
 
- Company.getAllCompanys(function(err,rows){
+ company.getAllCompanys(function(err,rows){
 
         if(err)
         {
@@ -35,7 +35,7 @@ else{
 });
 router.post('/',function(req,res,next){
 
-        Company.addCompany(req.body,function(err,count){
+        company.addCompany(req.body,function(err,count){
 
             //console.log(req.body);
             if(err)
@@ -48,7 +48,7 @@ router.post('/',function(req,res,next){
         });
 });
  router.post('/:id',function(req,res,next){
-  Company.deleteAll(req.body,function(err,count){
+  company.deleteAll(req.body,function(err,count){
     if(err)
     {
       res.json(err);
@@ -61,7 +61,7 @@ router.post('/',function(req,res,next){
 });
 router.delete('/:id',function(req,res,next){
 
-        Company.deleteCompany(req.params.id,function(err,count){
+        company.deleteCompany(req.params.id,function(err,count){
 
             if(err)
             {
@@ -76,7 +76,7 @@ router.delete('/:id',function(req,res,next){
 });
 router.put('/:id',function(req,res,next){
 
-    Company.updateCompany(req.params.id,req.body,function(err,rows){
+    company.updateCompany(req.params.id,req.body,function(err,rows){
 
         if(err)
         {

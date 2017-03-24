@@ -4,17 +4,38 @@ var company = require('../models/company');
 var companykey = require('../models/companykey');
 var auth = require('basic-auth');
 const uuidV1 = require('uuid/v1');
+var db = require('../dbconnection');
 //todo: get this shit out
+
+router.get('/getnewapikey/:companyname', function (req, res, next) {
+    console.log('in getnewAPIKey');
+    console.log(req.params.companyname);
+
+    company.getnewAPIKey(req.params.companyname, function (err, rows) {
+
+        if (err) {
+            res.json(err);
+        } else {
+            res.json(rows);
+            // res.end(newAPIKey);
+            // var apikey = 
+            // res.end(apikey);
+            // res.end('tttt')
+        }
+    });
+});
+
 router.get('/:name?', function (req, res, next) {
     var credentials = auth(req)
 
-    if (!credentials || credentials.name !== 'john') {
+    if (!credentials || credentials.name !== 'username') {
         res.statusCode = 401
         res.setHeader('WWW-Authenticate', 'Basic realm="example"')
         res.end('Access denied')
     } else {
         // res.end('Access granted')
         if (req.params.name) {
+            console.log(req.params.name);
             company.getCompanyByName(req.params.name, function (err, rows) {
 
                 if (err) {
@@ -24,17 +45,9 @@ router.get('/:name?', function (req, res, next) {
                 }
             });
         } else {
-
-            company.getAllCompanys(function (err, rows) {
-
-                if (err) {
-                    res.json(err);
-                } else {
-                    console.log(uuidV1());
-                    res.json(rows);
-                }
-
-            });
+            var err = new Error('Not Found');
+            err.status = 404;
+            next(err);
         }
     }
 

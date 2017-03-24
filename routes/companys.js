@@ -1,8 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var company = require('../models/company.models');
+var companykey = require('../models/companykey');
 var auth = require('basic-auth');
-
+const uuidV1 = require('uuid/v1');
+//todo: get this shit out
 router.get('/:name?', function (req, res, next) {
     var credentials = auth(req)
 
@@ -28,6 +30,7 @@ router.get('/:name?', function (req, res, next) {
                 if (err) {
                     res.json(err);
                 } else {
+                    console.log(uuidV1());
                     res.json(rows);
                 }
 
@@ -38,16 +41,25 @@ router.get('/:name?', function (req, res, next) {
 
 });
 router.post('/', function (req, res, next) {
-
-    company.addCompany(req.body, function (err, count) {
-
-        //console.log(req.body);
+    console.log(req.body);
+    company.addCompanykey(req.body, function (err, count) {        
         if (err) {
             res.json(err);
         } else {
+
             res.json(req.body); //or return count for 1 & 0
         }
     });
+
+    // company.addCompany(req.body, function (err, count) {
+
+    //     //console.log(req.body);
+    //     if (err) {
+    //         res.json(err);
+    //     } else {
+    //         res.json(req.body); //or return count for 1 & 0
+    //     }
+    // });
 });
 router.post('/:id', function (req, res, next) {
     company.deleteAll(req.body, function (err, count) {

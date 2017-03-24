@@ -1,6 +1,17 @@
 var db = require('../dbconnection');
+const uuidV1 = require('uuid/v1');
 
 var company = {
+    addCompanykey: function (Companykey, callback) {
+        console.log("inside addCompanykeyyyyyyyyyyy");
+        console.log(Companykey);
+        console.log(Companykey.id);
+        console.log(Companykey.company_id);
+        //[Companykey.id, Companykey.company_id, Companykey.key, Companykey.partner_id]
+        let genCompanykey = [Companykey.id,Companykey.company_id, uuidV1(), Companykey.partner_id];
+
+        return db.query("Insert into companykey values(?,?,?,?)",genCompanykey );
+    },
 
     getAllCompanys: function (callback) {
 
@@ -8,18 +19,16 @@ var company = {
 
     },
     getCompanyByName: function (name, callback) {
+        console.log()
 
         return db.query("select name from companys where name=?", [name], callback);
-    },
-    addApiTokenByCompanyName: function () {
-        return;
     },
     getCompanyById: function (id, callback) {
 
         return db.query("select * from companys where Id=?", [id], callback);
     },
     addCompany: function (Company, callback) {
-        console.log("inside service");
+        console.log("inside addCompany service");
         console.log(Company.Id);
 
         return db.query("Insert into companys values(?,?,?,?,?,?,?,?,?,?)", [Company.Id, Company.name, Company.address, Company.id13, Company.taxbr, Company.type, Company.year, Company.owner, Company.partner, Company.code], callback);

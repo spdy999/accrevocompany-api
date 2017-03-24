@@ -1,43 +1,43 @@
-var db=require('../dbconnection');
+var db = require('../dbconnection');
 
-var company={
+var company = {
 
-getAllCompanys:function(callback){
+    getAllCompanys: function (callback) {
 
-return db.query("Select * from companys",callback);
+        return db.query("Select * from companys", callback);
 
-},
-getCompanyByName:function(name,callback){
+    },
+    getCompanyByName: function (name, callback) {
 
-    return db.query("select name from companys where name=?",[name],callback);
-},
-addApiTokenByCompanyName: function(){
-    return;
-}
-,
-getCompanyById:function(id,callback){
+        return db.query("select name from companys where name=?", [name], callback);
+    },
+    addApiTokenByCompanyName: function () {
+        return;
+    },
+    getCompanyById: function (id, callback) {
 
-    return db.query("select * from companys where Id=?",[id],callback);
-},
-addCompany:function(Company,callback){
-   console.log("inside service");
-   console.log(Company.Id);
-return db.query("Insert into companys values(?,?,?)",[Company.Id,Company.name,Company.address],callback);
-},
-deleteCompany:function(id,callback){
-    return db.query("delete from companys where Id=?",[id],callback);
-},
-updateCompany:function(id,Company,callback){
-    return  db.query("update companys set name=?,address=? where Id=?",[Company.name,Company.address,id],callback);
-},
-deleteAll:function(item,callback){
+        return db.query("select * from companys where Id=?", [id], callback);
+    },
+    addCompany: function (Company, callback) {
+        console.log("inside service");
+        console.log(Company.Id);
 
-var delarr=[];
-   for(i=0;i<item.length;i++){
+        return db.query("Insert into companys values(?,?,?,?,?,?,?,?,?,?)", [Company.Id, Company.name, Company.address, Company.id13, Company.taxbr, Company.type, Company.year, Company.owner, Company.partner, Company.code], callback);
+    },
+    deleteCompany: function (id, callback) {
+        return db.query("delete from companys where Id=?", [id], callback);
+    },
+    updateCompany: function (id, Company, callback) {
+        return db.query("update companys set name=?,address=? where Id=?", [Company.name, Company.address, id], callback);
+    },
+    deleteAll: function (item, callback) {
 
-       delarr[i]=item[i].Id;
-   }
-   return db.query("delete from companys where Id in (?)",[delarr],callback);
-}
+        var delarr = [];
+        for (i = 0; i < item.length; i++) {
+
+            delarr[i] = item[i].Id;
+        }
+        return db.query("delete from companys where Id in (?)", [delarr], callback);
+    }
 };
-module.exports=company;
+module.exports = company;

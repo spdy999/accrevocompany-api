@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var company=require('../models/company.models');
+var auth = require('basic-auth');
 
 router.get('/:name?',function(req,res,next){
 

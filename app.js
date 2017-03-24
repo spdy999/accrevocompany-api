@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var cors=require('cors');
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var companys=require('./routes/companys.router');
+var companys=require('./routes/companys');
 var Students=require('./routes/Students');
 
 var app = express();

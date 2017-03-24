@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var company = require('../models/company.models');
+var company = require('../models/company');
 var companykey = require('../models/companykey');
 var auth = require('basic-auth');
 const uuidV1 = require('uuid/v1');

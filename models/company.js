@@ -8,14 +8,14 @@ var company = {
         console.log(Companykey.id);
         console.log(Companykey.company_id);
         //[Companykey.id, Companykey.company_id, Companykey.key, Companykey.partner_id]
-        let genCompanykey = [Companykey.id,Companykey.company_id, uuidV1(), Companykey.partner_id];
+        let genCompanykey = [Companykey.id, uuidV1(), Companykey.partner_id];
 
-        return db.query("Insert into companykey values(?,?,?,?)",genCompanykey );
+        return db.query("Insert into companykey values(?,LAST_INSERT_ID(),?,?)",genCompanykey );
     },
 
     getAllCompanys: function (callback) {
 
-        return db.query("Select * from companys", callback);
+        return db.query("Select * from companys;Select * from companykey;", callback);
 
     },
     getCompanyByName: function (name, callback) {
@@ -29,9 +29,16 @@ var company = {
     },
     addCompany: function (Company, callback) {
         console.log("inside addCompany service");
-        console.log(Company.Id);
+        console.log(Company);
+        // var maxId = db.query("select max(id) from companys");
+        // console.log('maxId: '+maxId);
+        //[Company.id, Company.name, Company.address, Company.id13, Company.taxbr, Company.type,Company.comment, Company.contactperson, Company.contacttel, Company.year, Company.owner, Company.partner, Company.code, Company.created_at, Company.updated_at]
+        let companyData = [Company.id, Company.name, Company.address, Company.id13, Company.taxbr, Company.type,Company.comment, Company.contactperson, Company.contacttel, Company.year, Company.owner, Company.partner, Company.code, Company.created_at, Company.updated_at];
+        // let genCompanykey = [Companykey.id, maxId, uuidV1(), Companykey.partner_id];
+        let combination = [Company.id, Company.name, Company.address, Company.id13, Company.taxbr, Company.type,Company.comment, Company.contactperson, Company.contacttel, Company.year, Company.owner, Company.partner, Company.code, Company.created_at, Company.updated_at,Company.id, uuidV1(), Company.partner_id];
+        // return db.query("Insert into companys values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",companyData , callback);
 
-        return db.query("Insert into companys values(?,?,?,?,?,?,?,?,?,?)", [Company.Id, Company.name, Company.address, Company.id13, Company.taxbr, Company.type, Company.year, Company.owner, Company.partner, Company.code], callback);
+        return db.query("Insert into companys values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);Insert into companykey values(?,LAST_INSERT_ID(),?,?)",combination , callback);
     },
     deleteCompany: function (id, callback) {
         return db.query("delete from companys where Id=?", [id], callback);

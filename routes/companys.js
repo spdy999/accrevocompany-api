@@ -42,24 +42,25 @@ router.get('/:name?', function (req, res, next) {
 });
 router.post('/', function (req, res, next) {
     console.log(req.body);
-    company.addCompanykey(req.body, function (err, count) {        
+
+    company.addCompany(req.body, function (err, count) {
+
+        //console.log(req.body);
         if (err) {
             res.json(err);
         } else {
-
             res.json(req.body); //or return count for 1 & 0
         }
     });
-
-    // company.addCompany(req.body, function (err, count) {
-
-    //     //console.log(req.body);
+    // company.addCompanykey(req.body, function (err, count) {        
     //     if (err) {
     //         res.json(err);
     //     } else {
+
     //         res.json(req.body); //or return count for 1 & 0
     //     }
     // });
+
 });
 router.post('/:id', function (req, res, next) {
     company.deleteAll(req.body, function (err, count) {

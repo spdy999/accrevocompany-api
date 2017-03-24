@@ -11,7 +11,9 @@ getCompanyByName:function(name,callback){
 
     return db.query("select name from companys where name=?",[name],callback);
 },
-addApiTokenByCompanyName: function()
+addApiTokenByCompanyName: function(){
+    return;
+}
 ,
 getCompanyById:function(id,callback){
 

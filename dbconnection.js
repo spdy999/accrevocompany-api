@@ -5,7 +5,8 @@ host:'localhost',
 user:'root',
 password:'1666',
 database:'accrevocompany',
-multipleStatements: true
+multipleStatements: true,
+dateStrings:true
 });
 
 

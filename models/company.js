@@ -13,7 +13,7 @@ var company = {
     },
     addCompany: function (Company, callback) {
         let date = (new Date()).toISOString().substring(0, 19).replace('T', ' ');                                                                                                                                                                                                                                         //todo: fix wrong format here                   
-        let combination = [Company.id, Company.name, Company.address, Company.id13, Company.taxbr, Company.type, Company.comment, Company.contactperson, Company.contacttel, Company.year, Company.owner, Company.partner, Company.code, date, date, Company.id, uuidV1()+'12345678901234', Company.partner_id];
+        let combination = [Company.id, Company.name, Company.address, Company.id13, Company.taxbr, Company.type, Company.comment, Company.contactperson, Company.contacttel, Company.year, Company.owner, Company.partner, Company.code, date, date, Company.id, '12345678901234'+uuidV1(), Company.partner_id];
 
         return db.query("Insert into companys values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);Insert into companykey values(?,LAST_INSERT_ID(),?,?)", combination, callback);
     }

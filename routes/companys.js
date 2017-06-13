@@ -2,12 +2,9 @@ var express = require('express');
 var router = express.Router();
 var company = require('../models/company');
 var auth = require('basic-auth');
-const uuidV1 = require('uuid/v1');
-var db = require('../dbconnection');
 
 router.get('/getnewapikey/:companyname', function (req, res, next) {
     company.getnewAPIKey(req.params.companyname, function (err, rows) {
-
         if (err) {
             res.json(err);
         } else {
@@ -40,9 +37,8 @@ router.get('/:name?', function (req, res, next) {
             next(err);
         }
     }
-
-
 });
+
 router.post('/', function (req, res, next) {
     console.log(req.body);
 
@@ -55,4 +51,5 @@ router.post('/', function (req, res, next) {
         }
     });
 });
+
 module.exports = router;
